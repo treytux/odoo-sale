@@ -4,4 +4,4 @@ Asistente que permite capturar un pedido de venta y convertirlo en un pedido de 
 
 ```print_invoice_from_sale_order ```
 ====
-Permite imprimir la/s facturas asociadas desde un pedido de venta.
+Permite imprimir las facturas asociadas desde pedidos de venta.

@@ -24,7 +24,7 @@
     'category': 'Sales management',
     'version': '1.0',
     'description': """
-Print invoice report from sale order.
+Print invoice report from sale orders.
     """,
     'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
     'website': 'http://www.trey.es',
