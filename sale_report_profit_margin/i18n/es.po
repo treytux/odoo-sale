@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_report_profit_margin
+# 	* sale_margin_security
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-14 10:45+0000\n"
-"PO-Revision-Date: 2015-01-14 11:46+0100\n"
+"POT-Creation-Date: 2015-01-15 08:39+0000\n"
+"PO-Revision-Date: 2015-01-15 09:41+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,34 +16,13 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.4\n"
 
-#. module: sale_report_profit_margin
-#: model:ir.filters,name:sale_report_profit_margin.filter_sale_report_margin
-msgid "By Margin"
-msgstr "Por margen"
+#. module: sale_margin_security
+#: model:res.groups,name:sale_margin_security.group_view_sale_margin
+msgid "View sale margins"
+msgstr "Ver los márgenes de venta"
 
-#. module: sale_report_profit_margin
-#: model:ir.filters,name:sale_report_profit_margin.filter_sale_report_state_id
-msgid "By Partner state"
-msgstr "Por provincia cliente"
-
-#. module: sale_report_profit_margin
-#: view:sale.report:sale_report_profit_margin.sale_report_search_view
-#: field:sale.report,margin:0
-msgid "Margin"
-msgstr "Margen"
-
-#. module: sale_report_profit_margin
-#: view:sale.report:sale_report_profit_margin.sale_report_search_view
-#: field:sale.report,state_id:0
-msgid "Partner state"
-msgstr "Provincia cliente"
-
-#. module: sale_report_profit_margin
-#: model:ir.model,name:sale_report_profit_margin.model_sale_report
-msgid "Sales Orders Statistics"
-msgstr "Estadísticas pedidos de venta"
-
-#. module: sale_report_profit_margin
-#: model:ir.model,name:sale_report_profit_margin.model_sale_report_profit_margin
-msgid "Sales orders profit margin statistics"
-msgstr "Sales orders profit margin statistics"
+#. module: sale_margin_security
+#: view:sale.order:sale_margin_security.sale_margin_security_sale_order_form_line_form
+#: view:sale.order:sale_margin_security.sale_margin_security_sale_order_form_line_tree
+msgid "sale_margin_security.group_view_sale_margin"
+msgstr "sale_margin_security.group_view_sale_margin"
