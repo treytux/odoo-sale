@@ -13,3 +13,8 @@ Expande el informe de análisis de ventas para agregar agrupaciones por los már
 ```sale_margin_security ```
 ====
 Crea un nuevo grupo y modifica las vistas del módulo sale_margin para que estos campos sólo sean vistos por los componentes del nuevo grupo.
+
+``` sale_warning_real_stock ```
+====
+Mensaje de aviso de stock insuficiente en pedidos de ventas basado en el stock real no en el virtual.
+
