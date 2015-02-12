@@ -18,42 +18,35 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from openerp import models, api, _
+from openerp import models, api, exceptions, _
 
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
-                          uom=False, qty_uos=0, uos=False, name='',
-                          partner_id=False, lang=False, update_tax=True,
-                          date_order=False, packaging=False,
-                          fiscal_position=False, flag=False,
-                          warehouse_id=False):
-        res = self.product_id_change(cr, uid, ids, pricelist, product, qty=qty,
-                                     uom=False, qty_uos=qty_uos, uos=uos,
-                                     name=name, partner_id=partner_id,
-                                     lang=lang, update_tax=update_tax,
-                                     date_order=date_order,
-                                     packaging=packaging,
-                                     fiscal_position=fiscal_position,
-                                     flag=flag)
+    @api.multi
+    def product_id_change(
+            self, pricelist, product, qty=0, uom=False, qty_uos=0, uos=False,
+            name='', partner_id=False, lang=False, update_tax=True,
+            date_order=False, packaging=False, fiscal_position=False,
+            flag=False):
+        res = super(SaleOrderLine, self).product_id_change(
+            pricelist, product, qty=qty, uom=uom, qty_uos=qty_uos, uos=uos,
+            name=name, partner_id=partner_id, lang=lang, update_tax=update_tax,
+            date_order=date_order, packaging=packaging,
+            fiscal_position=fiscal_position, flag=flag)
         product_obj = self.env['product.product']
-        product_id = res['product']
-        product = product_obj.search([('product_id', '=', product_id)])
         warning_msgs = ''
-        if product.qty_available < qty:
-            warn_msg = _('You plan to sell %.2f %s but you only have %.2f %s '
+        if product and res['value']['product_uos_qty']:
+            product = product_obj.browse(product)
+            if res['value']['product_uos_qty'] > product.qty_available:
+                warn_msg = _('You plan to sell %.2f %s but you only have %.2f %s '
                          'available !\nThe real stock is %.2f %s. '
                          '(without reservations)') % \
-                (qty, product.uom_id.name,
-                 max(0, product_obj.virtual_available), product.uom_id.name,
-                 max(0, product_obj.qty_available), product.uom_id.name)
-            warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
+                    (qty, product.uom_id.name,
+                        max(0, product.virtual_available), product.uom_id.name,
+                        max(0, product.qty_available), product.uom_id.name)
+                warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
         if warning_msgs:
-            warning = {
-                'title': _('Configuration Error!'),
-                'message': warning_msgs
-            }
-        res.update({'warning': warning})
+            raise exceptions.Warning(warning_msgs)
         return res

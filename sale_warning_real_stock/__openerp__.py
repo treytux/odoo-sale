@@ -30,8 +30,8 @@ Change stock check for using real stock not virtual stock
     'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
     'website': 'http://www.trey.es',
     'depends': [
+        'sale_stock',
         'sale',
-        'stock',
     ],
     'data': [],
     'test': [],
