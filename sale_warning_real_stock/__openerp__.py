@@ -31,7 +31,6 @@ Change stock check for using real stock not virtual stock
     'website': 'http://www.trey.es',
     'depends': [
         'sale_stock',
-        'sale',
     ],
     'data': [],
     'test': [],

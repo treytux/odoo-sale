@@ -25,16 +25,17 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     @api.multi
-    def product_id_change(
+    def product_id_change_with_wh(
             self, pricelist, product, qty=0, uom=False, qty_uos=0, uos=False,
             name='', partner_id=False, lang=False, update_tax=True,
             date_order=False, packaging=False, fiscal_position=False,
-            flag=False):
-        res = super(SaleOrderLine, self).product_id_change(
+            flag=False, warehouse_id=False):
+
+        res = super(SaleOrderLine, self).product_id_change_with_wh(
             pricelist, product, qty=qty, uom=uom, qty_uos=qty_uos, uos=uos,
             name=name, partner_id=partner_id, lang=lang, update_tax=update_tax,
             date_order=date_order, packaging=packaging,
-            fiscal_position=fiscal_position, flag=flag)
+            fiscal_position=fiscal_position, flag=flag, warehouse_id=warehouse_id)
         product_obj = self.env['product.product']
         warning_msgs = ''
         if product and res['value']['product_uos_qty']:
@@ -47,6 +48,11 @@ class SaleOrderLine(models.Model):
                         max(0, product.virtual_available), product.uom_id.name,
                         max(0, product.qty_available), product.uom_id.name)
                 warning_msgs += _("Not enough stock ! : ") + warn_msg + "\n\n"
+
         if warning_msgs:
-            raise exceptions.Warning(warning_msgs)
+            warning = {
+                'title': _('Configuration Error!'),
+                'message': warning_msgs
+            }
+            res['warning'] = warning
         return res
