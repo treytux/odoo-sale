@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class SaleOrder(models.Model):
@@ -30,12 +30,13 @@ class SaleOrder(models.Model):
         readonly=True,
         help="Pos Order relationated.")
 
-    # Anade valor al campo estado de pedido de ventas
-    def __init__(self, pool, cr):
-        super(SaleOrder, self).__init__(pool, cr)
-
-        option = ('manage_from_pos', 'Manage from PoS')
-        type_selection = self._columns['state'].selection
-
-        if option not in type_selection:
-            type_selection.append(option)
+    @api.model
+    def _setup_fields(self):
+        '''Anadir valores al campo state de pedido de ventas.'''
+        res = super(SaleOrder, self)._setup_fields()
+        if 'state' in self._fields and \
+           ('manage_from_pos', 'Manage from PoS') not in\
+           self._fields['state'].selection:
+                self._fields['state'].selection.append(
+                    ('manage_from_pos', 'Manage from PoS'))
+        return res
