@@ -30,13 +30,5 @@ class SaleOrder(models.Model):
         readonly=True,
         help="Pos Order relationated.")
 
-    @api.model
-    def _setup_fields(self):
-        '''Anadir valores al campo state de pedido de ventas.'''
-        res = super(SaleOrder, self)._setup_fields()
-        if 'state' in self._fields and \
-           ('manage_from_pos', 'Manage from PoS') not in\
-           self._fields['state'].selection:
-                self._fields['state'].selection.append(
-                    ('manage_from_pos', 'Manage from PoS'))
-        return res
+    state = fields.Selection(
+        selection_add=[('manage_from_pos', 'Manage from PoS')])
