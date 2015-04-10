@@ -24,9 +24,8 @@
     'summary': 'Sale report profit margin',
     'category': 'Sales management',
     'version': '1.0',
-    'description': """
-Expands the sales analysis report to add groupings by sales margins and by states.
-    """,
+    'description': """ Expands the sales analysis report to add groupings by
+    sales margins and by states.""",
     'author': 'Trey Kilobytes de Soluciones (www.trey.es)',
     'website': 'http://www.trey.es',
     'depends': [
